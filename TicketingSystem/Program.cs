@@ -1,5 +1,6 @@
 using Messaging;
-using TrainRouteManager.Services;
+using TicketingSystem.HostedServices;
+using TicketingSystem.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<IRouteCreatorService, RouteCreatorService>();
+
+builder.Services.AddTransient<ITicketService, TicketService>();
+builder.Services.AddHostedService<PaymentMessageProcessor>();
+builder.Services.AddHostedService<RouteManagerMessageProcessor>();
 builder.Services.AddTransient(typeof(IPubSub<>), typeof(PubSub<>));
 
 var app = builder.Build();

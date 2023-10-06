@@ -1,2 +1,25 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using Messaging;
+using PaymentServices;
+
+List<Purchase> _purchases = new List<Purchase>();
+
+Console.WriteLine("Welcome to the Payment services");
+
+PubSub<Purchase> pubSub = new PubSub<Purchase>();
+await pubSub.SubscribeAsync("trainTickets", "initiatedPurchases", MakePayment);
+
+
+Console.WriteLine("Press [enter] to exit");
+Console.ReadLine();
+
+
+async Task MakePayment(Purchase purchase)
+{
+    _purchases.Add(purchase);
+
+    purchase.State = PurchaseState.Completed;
+
+    await pubSub.PublishAsync("trainTickets", "completedPurchases", purchase);
+
+    Console.WriteLine($"New payment made by {purchase.PassengerName} on route {purchase.RouteName} for {purchase.NumberOfSeats} seats");
+}
