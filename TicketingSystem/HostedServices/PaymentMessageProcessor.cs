@@ -23,7 +23,8 @@ namespace TicketingSystem.HostedServices
 
         async Task FinalizePurchase(Purchase purchase)
         {
-            Console.WriteLine($"New purchase made by {purchase.PassengerName} on route {purchase.RouteName} for {purchase.NumberOfSeats} seats");
+            Console.WriteLine($"Decreased number of available seats by {purchase.NumberOfSeats} on route {purchase.RouteName}");
+            Console.WriteLine($"New purchase made by {purchase.PassengerName} on route {purchase.RouteName} for {purchase.NumberOfSeats} seat(s)");
         }
     }
 }

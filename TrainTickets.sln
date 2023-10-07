@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainRouteManager", "TrainR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messaging", "Messaging\Messaging.csproj", "{2ABB39BB-5BB0-4989-A1AE-706F5591837B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingSystem", "TicketingSystem\TicketingSystem.csproj", "{E756E67D-2938-4D35-9FB8-4A603ADF1F54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketingSystem", "TicketingSystem\TicketingSystem.csproj", "{E756E67D-2938-4D35-9FB8-4A603ADF1F54}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{21CB78D1-1753-4C6B-B367-61C04EE080A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingSystemTests", "TicketingSystemTests\TicketingSystemTests.csproj", "{427E3507-0662-46E5-8242-AD76FCBEB982}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +37,16 @@ Global
 		{E756E67D-2938-4D35-9FB8-4A603ADF1F54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E756E67D-2938-4D35-9FB8-4A603ADF1F54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E756E67D-2938-4D35-9FB8-4A603ADF1F54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{427E3507-0662-46E5-8242-AD76FCBEB982}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{427E3507-0662-46E5-8242-AD76FCBEB982}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{427E3507-0662-46E5-8242-AD76FCBEB982}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{427E3507-0662-46E5-8242-AD76FCBEB982}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{427E3507-0662-46E5-8242-AD76FCBEB982} = {21CB78D1-1753-4C6B-B367-61C04EE080A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E617C74A-63D0-4FD8-875B-7D3D7F2DCBB4}
