@@ -16,7 +16,7 @@ namespace Messaging
             _channel = connection.CreateModel();
         }
 
-        public async Task SubscribeAsync(string exchangeName, string topic, Func<T, Task> handler)
+        public async Task SubscribeAsync(string exchangeName, string routingKey, Func<T, Task> handler)
         {
             _channel.ExchangeDeclare(exchange: exchangeName, type: ExchangeType.Direct);
 
@@ -24,7 +24,7 @@ namespace Messaging
 
             _channel.QueueBind(queue: queueName,
                    exchange: exchangeName,
-                   routingKey: topic);
+                   routingKey: routingKey);
 
             var consumer = new EventingBasicConsumer(_channel);
             consumer.Received += (model, ea) =>
@@ -40,13 +40,13 @@ namespace Messaging
                                  consumer: consumer);
         }
 
-        public async Task PublishAsync(string exchangeName, string topic, T message)
+        public async Task PublishAsync(string exchangeName, string routingKey, T message)
         {
             _channel.ExchangeDeclare(exchange: exchangeName, type: ExchangeType.Direct);
 
             var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message));
             _channel.BasicPublish(exchange: exchangeName,
-                                 routingKey: topic,
+                                 routingKey: routingKey,
                                  basicProperties: null,
                                  body: body);
         }
