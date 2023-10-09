@@ -9,11 +9,9 @@ namespace Messaging
     {
         private readonly IModel _channel;
 
-        public PubSub()
+        public PubSub(IModel channel)
         {
-            var factory = new ConnectionFactory { HostName = "localhost" };
-            var connection = factory.CreateConnection();
-            _channel = connection.CreateModel();
+            _channel = channel;
         }
 
         public async Task SubscribeAsync(string exchangeName, string routingKey, Func<T, Task> handler)

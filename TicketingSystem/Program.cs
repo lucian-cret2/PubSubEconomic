@@ -1,4 +1,5 @@
 using Messaging;
+using RabbitMQ.Client;
 using TicketingSystem.HostedServices;
 using TicketingSystem.Services;
 
@@ -12,10 +13,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddTransient<ITicketService, TicketService>();
+builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddHostedService<PaymentMessageProcessor>();
 builder.Services.AddHostedService<RouteManagerMessageProcessor>();
 builder.Services.AddTransient(typeof(IPubSub<>), typeof(PubSub<>));
+builder.Services.AddTransient<IModel>((s) =>
+{
+    var factory = new ConnectionFactory { HostName = "localhost" };
+    var connection = factory.CreateConnection();
+    return connection.CreateModel();
+});
 
 var app = builder.Build();
 

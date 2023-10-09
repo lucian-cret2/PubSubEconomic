@@ -1,4 +1,5 @@
 using Messaging;
+using RabbitMQ.Client;
 using TrainRouteManager.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,8 +11,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<IRouteCreatorService, RouteCreatorService>();
-builder.Services.AddTransient(typeof(IPubSub<>), typeof(PubSub<>));
+builder.Services.AddScoped<IRouteCreatorService, RouteCreatorService>();
+builder.Services.AddScoped(typeof(IPubSub<>), typeof(PubSub<>));
+builder.Services.AddScoped<IModel>((s) =>
+{
+    var factory = new ConnectionFactory { HostName = "localhost" };
+    var connection = factory.CreateConnection();
+    return connection.CreateModel();
+});
 
 var app = builder.Build();
 

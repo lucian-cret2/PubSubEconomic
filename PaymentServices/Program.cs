@@ -1,11 +1,16 @@
 ﻿using Messaging;
 using PaymentServices;
+using RabbitMQ.Client;
 
 List<Purchase> _purchases = new List<Purchase>();
 
 Console.WriteLine("Welcome to the Payment services");
 
-PubSub<Purchase> pubSub = new PubSub<Purchase>();
+var factory = new ConnectionFactory { HostName = "localhost" };
+var connection = factory.CreateConnection();
+var channel = connection.CreateModel();
+
+PubSub<Purchase> pubSub = new PubSub<Purchase>(channel);
 await pubSub.SubscribeAsync("trainTickets", "initiatedPurchases", MakePayment);
 
 
